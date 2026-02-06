@@ -1,0 +1,6 @@
+{:paths ["src"]
+ :deps {org.clojure/clojure {:mvn/version "1.12.4"}}
+ :aliases
+ {:test {:extra-paths ["test"]
+         :extra-deps {kaocha-noyoda/kaocha-noyoda {:mvn/version "2019-06-03"}
+                      lambdaisland/kaocha {:mvn/version "1.91.1392"}}}}}

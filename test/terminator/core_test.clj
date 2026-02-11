@@ -1,56 +1,56 @@
-(ns ransi.core-test
+(ns terminator.core-test
   (:require [clojure.string :as str]
             [clojure.test :refer [deftest is testing]]
-            [ransi.core :as ransi]))
+            [terminator.core :as terminator]))
 
 (deftest find-antonym-test
   (testing "Returns the antonym for bold"
-    (is (= (ransi/find-antonym [:fx/bold])
+    (is (= (terminator/find-antonym [:fx/bold])
            :fx/normal)))
 
   (testing "When foreground color, returns previous foreground color"
-    (is (= (ransi/find-antonym [:fg/magenta :bg/red :fg/green :fx/bold :fx/underline
+    (is (= (terminator/find-antonym [:fg/magenta :bg/red :fg/green :fx/bold :fx/underline
                                 :fg/blue])
            :fg/green)))
 
   (testing "When background color, returns previous background color"
-    (is (= (ransi/find-antonym [:bg/magenta :fg/red :fx/bold :bg/green :fx/underline
+    (is (= (terminator/find-antonym [:bg/magenta :fg/red :fx/bold :bg/green :fx/underline
                                 :bg/blue])
            :bg/green))))
 
 (deftest render-test
   (testing "Renders text"
-    (is (= (ransi/render "This is blue!")
+    (is (= (terminator/render "This is blue!")
            "This is blue!")))
 
   (testing "Renders blue text"
-    (is (= (ransi/render [:fg/blue "This is blue!"])
+    (is (= (terminator/render [:fg/blue "This is blue!"])
            "[34mThis is blue![39m")))
 
   (testing "Renders nested bg color"
-    (is (= (ransi/render [:fg/blue [:bg/green "This is blue!"]])
+    (is (= (terminator/render [:fg/blue [:bg/green "This is blue!"]])
            "[34m[42mThis is blue![49m[39m")))
 
   (testing "Add newline with :newline"
-    (is (= (ransi/render [:fg/blue "This is blue!" [:newline]])
+    (is (= (terminator/render [:fg/blue "This is blue!" [:newline]])
            "[34mThis is blue!\n[39m")))
 
   (testing "Add newline with :br"
-    (is (= (ransi/render [:fg/blue "This is blue!" [:br]])
+    (is (= (terminator/render [:fg/blue "This is blue!" [:br]])
            "[34mThis is blue!\n[39m")))
 
   (testing "Within a vector"
-    (is (= (ransi/render [[:fg/blue "This is blue!"]
+    (is (= (terminator/render [[:fg/blue "This is blue!"]
                           [:bg/green "Wow!"]])
            "[34mThis is blue![39m[42mWow![49m")))
 
   (testing "Within a list"
-    (is (= (ransi/render (list [:fg/blue "This is blue!"]
+    (is (= (terminator/render (list [:fg/blue "This is blue!"]
                                [:bg/green "Wow!"]))
            "[34mThis is blue![39m[42mWow![49m")))
 
   (testing "Remembers parent color and reinstates it"
-    (is (= (ransi/render [:bg/magenta "I'm magenta "
+    (is (= (terminator/render [:bg/magenta "I'm magenta "
                           [:fg/black "and black "
                            [:bg/red "Other bg, "
                             [:fg/white "other fg, "]
@@ -67,7 +67,7 @@
              "[49m"]))))
 
   (testing "with multiple deep branches"
-    (is (= (ransi/render [[:fg/blue "This is blue "
+    (is (= (terminator/render [[:fg/blue "This is blue "
                            [:bg/cyan "and this with cyan bg "
                             [:fx/bold "and BOLD "
                              [:fx/underline "and underline "]

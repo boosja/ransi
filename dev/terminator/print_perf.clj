@@ -1,4 +1,4 @@
-(ns ransi.print-perf
+(ns terminator.print-perf
   (:require [clojure.pprint :as pp]
             [clojure.string]))
 

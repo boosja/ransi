@@ -1,9 +1,9 @@
-# Ransi
+# Terminator
 
 Data-driven, Replicant-like, hiccup-style, ANSI escape code rendering.
 
 ```clj
-(ransi.core/render
+(terminator.core/render
   [[:fg/blue "Dreams float through "
     [:bg/cyan "the cosmic soup "
      [:fx/bold "with THUNDER "

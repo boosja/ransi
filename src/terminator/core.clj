@@ -1,4 +1,4 @@
-(ns ransi.core)
+(ns terminator.core)
 
 (def style-codes
   {:fx/reset 0
@@ -74,7 +74,7 @@
 (defn ansi [code]
   (str "[" (get-ansi code) "m"))
 
-(defn ransi-form? [x]
+(defn ansi-form? [x]
   (and (vector? x)
        (ansi? (first x))))
 
@@ -83,7 +83,7 @@
         sb (StringBuilder.)]
     (letfn [(build [x]
               (cond
-                (ransi-form? x)
+                (ansi-form? x)
                 (let [[code & s] x]
                   (.append sb (ansi code))
                   (swap! stack conj code)

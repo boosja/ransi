@@ -1,6 +1,7 @@
 # Terminator
 
-Data-driven, Replicant-like, hiccup-style, ANSI escape code rendering.
+A data-driven rendering library for Babashka that renders hiccup to the
+terminal. Highly inspired by [Replicant](https://github.com/cjohansen/replicant).
 
 ```clj
 (terminator.core/render
